@@ -1687,28 +1687,6 @@ function updateScheduleNextStatus (node, schedule, getNextDates = true, run = fa
             calculatedDurationPretty = enhancedMs(calculatedDuration)
             schedule.calculatedDuration = calculatedDuration
             schedule.calculatedDurationPretty = calculatedDurationPretty
-
-            // Calculate active state
-            const lastStart = primaryTaskStatus.lastDate ? new Date(primaryTaskStatus.lastDate) : null
-            const lastEnd = endTaskStatus.lastDate ? new Date(endTaskStatus.lastDate) : null
-
-            if (lastStart) {
-                if (!lastEnd) {
-                    schedule.active = true
-                    schedule.currentStartTime = primaryTaskStatus.lastDate
-                } else {
-                    if (lastStart > lastEnd) {
-                        schedule.active = true
-                        schedule.currentStartTime = primaryTaskStatus.lastDate
-                    } else {
-                        schedule.active = false
-                        schedule.currentStartTime = null
-                    }
-                }
-            } else {
-                schedule.active = false
-                schedule.currentStartTime = null
-            }
         }
 
         if (primaryTaskStatus) {
@@ -3610,6 +3588,22 @@ module.exports = function (RED) {
                                     dontStartTheTask: !schedule.enabled,
                                     endSchedule: true,
                                     limit: 1
+                                }
+
+                                // Calculate if schedule is currently active by checking solar end event
+                                const endDescription = generateSolarDescription(node, endCmd)
+                                if (endDescription && endDescription.lastEventTimeOffset) {
+                                    // If the last end event is before the last primary event, we're currently active
+                                    if (schedule?.primaryTask?.lastDate > endDescription.lastEventTimeOffset) {
+                                        schedule.active = true
+                                        schedule.currentStartTime = schedule?.primaryTask?.lastDate
+                                    } else {
+                                        schedule.active = false
+                                        schedule.currentStartTime = null
+                                    }
+                                } else {
+                                    schedule.active = false
+                                    schedule.currentStartTime = null
                                 }
 
                                 updateTask(node, endCmd, null)
