@@ -1601,7 +1601,7 @@ export default {
             return [
                 { value: 'reportIssue', label: this.t('reportIssue'), icon: 'mdi-bug', color: 'red-lighten-1' },
                 { value: 'featureRequest', label: this.t('featureRequest'), icon: 'mdi-lightbulb', color: 'yellow-darken-1' },
-                { value: 'buyCoffee', label: this.t('buyCoffee'), icon: 'mdi-coffee', color: 'white' },
+<!--            { value: 'buyCoffee', label: this.t('buyCoffee'), icon: 'mdi-coffee', color: 'white' },  -->
                 {
                     value: 'updates',
                     label: this.isUpdateAvailable
@@ -1873,9 +1873,9 @@ export default {
                 case 'featureRequest':
                     window.open('https://github.com/cgjgh/node-red-dashboard-2-ui-scheduler/issues/new?labels=enhancement', '_blank')
                     break
-                case 'buyCoffee':
-                    window.open('https://www.buymeacoffee.com/cgjgh', '_blank')
-                    break
+<!--            case 'buyCoffee': -->
+<!--                window.open('https://www.buymeacoffee.com/cgjgh', '_blank') -->
+<!--                 break -->
                 case 'updates':
                     if (!this.isUpdateAvailable) {
                         const msg = {
