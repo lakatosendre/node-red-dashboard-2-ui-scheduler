@@ -1,5 +1,5 @@
 {
-  "name": "@cgjgh/node-red-dashboard-2-ui-scheduler",
+  "name": "@lakatosendre/node-red-dashboard-2-ui-scheduler",
   "version": "3.3.7",
   "description": "A UI scheduler node that integrates with Node-RED Dashboard 2.0",
   "keywords": [
