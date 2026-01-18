@@ -1573,6 +1573,9 @@ export default {
             case 'es':
                 baseMessages = es
                 break
+            case 'hu':
+                baseMessages = hu
+                break
             case 'fr':
                 baseMessages = fr
                 break
